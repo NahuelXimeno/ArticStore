@@ -4,6 +4,8 @@ import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
+import { Link } from "react-router-dom";
+import Styles from "./Navbar.module.css";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -15,15 +17,16 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 const CartWidget = () => {
   return (
-    <Box sx={{ flexGrow: 0 }}>
-      <Tooltip title="Ver Carrito">
-        <IconButton aria-label="cart">
-          <StyledBadge badgeContent={4} color="error">
+    <Link className={Styles.navcategoria} to={`/carrito`}>
+      <Box sx={{ flexGrow: 0 }}>
+        <Tooltip title="Ver Carrito">
+          <IconButton aria-label="cart">
+            <StyledBadge badgeContent={4} color="error"></StyledBadge>
             <ShoppingCartIcon />
-          </StyledBadge>
-        </IconButton>
-      </Tooltip>
-    </Box>
+          </IconButton>
+        </Tooltip>
+      </Box>
+    </Link>
   );
 };
 

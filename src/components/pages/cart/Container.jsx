@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ProductsListPresentacional from "./ProductsList";
+import ProductsList from "../productsList/ProductsList";
 import { products } from "../../../productsMock";
 import { useParams } from "react-router";
 
@@ -24,7 +24,7 @@ const Container = () => {
       });
   }, [categoryName]);
 
-  return <ProductsListPresentacional items={items} />;
+  return <ProductsList items={items} />;
 };
 
 export default Container;

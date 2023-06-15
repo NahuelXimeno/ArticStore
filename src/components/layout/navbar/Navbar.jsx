@@ -10,8 +10,10 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import CartWidget from "./CartWidget";
+import { Link } from "react-router-dom";
+import Styles from "./Navbar.module.css";
 
-const pages = ["Productos", "Nosotros"];
+const pages = ["Shooter", "Lucha"];
 
 function Bar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -33,7 +35,6 @@ function Bar() {
               variant="h6"
               noWrap
               component="a"
-              href="/"
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
@@ -44,7 +45,9 @@ function Bar() {
                 textDecoration: "none",
               }}
             >
-              Artic Store
+              <Link className={Styles.navcategoria} to={`/`}>
+                ArticStore
+              </Link>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
@@ -77,7 +80,16 @@ function Bar() {
               >
                 {pages.map((page) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                    <Typography textAlign="center">
+                      <Button>
+                        <Link
+                          className={Styles.navcategoriaSmall}
+                          to={`/category/${page}`}
+                        >
+                          {page}
+                        </Link>
+                      </Button>
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>
@@ -101,7 +113,7 @@ function Bar() {
             >
               <img
                 style={{ height: 150, padding: 10 }}
-                src="src/assets/images/logo.svg"
+                src="../../../../logo.svg"
                 alt=""
               />
             </Typography>
@@ -112,7 +124,12 @@ function Bar() {
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  {page}
+                  <Link
+                    className={Styles.navcategoria}
+                    to={`/category/${page}`}
+                  >
+                    {page}
+                  </Link>
                 </Button>
               ))}
             </Box>

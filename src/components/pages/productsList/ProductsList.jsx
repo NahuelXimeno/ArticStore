@@ -1,8 +1,12 @@
-const ProductsList = () => {
+import ProductCard from "../../common/productCard/ProductCard";
+import "./ProductsList.css";
+const ProductsList = ({ items }) => {
   return (
-    <>
-      <h1>productos</h1>
-    </>
+    <div className="cards-container">
+      {items.map((elemento) => {
+        return <ProductCard key={elemento.id} elemento={elemento} />;
+      })}
+    </div>
   );
 };
 
