@@ -1,30 +1,68 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProductDetail from "./ProductDetail";
-import { products } from "../../../productsMock";
+import { PacmanLoader } from "react-spinners";
 import { useParams } from "react-router-dom";
+import { CartContext } from "../../../context/CartContext";
+import Swal from "sweetalert2";
+import { db } from "../../../firebaseConfig";
 
+import { collection, getDoc, doc } from "firebase/firestore";
 
-const ProductDetailContainer = () => {
+const Container = () => {
   const [productSelected, setProductSelect] = useState({});
 
-   const { id } = useParams()
-   console.log(id)
-  
+  const { addToCart, getTotalQuantityById } = useContext(CartContext);
+
+  const { id } = useParams();
+
+  const cantidad = getTotalQuantityById(id);
+
+  const onAdd = (cantidad) => {
+    let data = {
+      ...productSelected,
+      quantity: cantidad,
+    };
+
+    addToCart(data);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Producto agregado exitosamente",
+      showConfirmButton: true,
+      timer: 1500,
+    });
+  };
 
   useEffect(() => {
-    let productFind = products.find((product) => product.id === +id); 
-
-    const getProduct = new Promise((res) => {
-      res(productFind);
+    let itemCollection = collection(db, "products");
+    let refDoc = doc(itemCollection, id);
+    getDoc(refDoc).then((res) => {
+      setProductSelect({ ...res.data(), id: res.id });
     });
-
-    getProduct
-      .then((res) => setProductSelect(res))
-      .catch((err) => console.log(err));
   }, [id]);
 
-
-  return <ProductDetail productSelected={productSelected}  />;
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "90vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {productSelected.id ? (
+        <ProductDetail
+          cantidad={cantidad}
+          productSelected={productSelected}
+          addToCart={addToCart}
+          onAdd={onAdd}
+        />
+      ) : (
+        <PacmanLoader color="#ffed00" cssOverride={{}} loading size={62} />
+      )}
+    </div>
+  );
 };
 
-export default ProductDetailContainer;
+export default Container;

@@ -1,30 +1,40 @@
-import { useEffect, useState } from "react";
-import ProductsList from "../productsList/ProductsList";
-import { products } from "../../../productsMock";
-import { useParams } from "react-router";
+import { useContext } from "react";
+import { CartContext } from "../../../context/CartContext";
+import Swal from "sweetalert2";
+import Cart from "./Cart";
 
-const Container = () => {
-  const [items, setItems] = useState([]);
+const CartContainer = () => {
+  const { cart, clearCart, removeById, getTotalPrice } =
+    useContext(CartContext);
 
-  const { categoryName } = useParams();
+  let total = getTotalPrice();
 
-  useEffect(() => {
-    let productosFiltrados = products.filter(
-      (product) => product.category === categoryName
-    );
-
-    const tarea = new Promise((resolve) => {
-      resolve(categoryName ? productosFiltrados : products);
+  const limpiar = () => {
+    Swal.fire({
+      title: "Seguro quieres limpiar el carrito?",
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Limpiar",
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        clearCart();
+        Swal.fire("Carrito limpio", "", "success");
+      } else if (result.isDenied) {
+      }
     });
+  };
 
-    tarea
-      .then((respuesta) => setItems(respuesta))
-      .catch((rechazo) => {
-        console.log(rechazo);
-      });
-  }, [categoryName]);
-
-  return <ProductsList items={items} />;
+  return (
+    <div>
+      <Cart
+        total={total}
+        limpiar={limpiar}
+        cart={cart}
+        removeById={removeById}
+      />
+    </div>
+  );
 };
 
-export default Container;
+export default CartContainer;

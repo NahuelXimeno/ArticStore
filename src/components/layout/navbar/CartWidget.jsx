@@ -6,6 +6,8 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 import Styles from "./Navbar.module.css";
+import { useContext } from "react";
+import { CartContext } from "../../../context/CartContext";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -15,13 +17,16 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     padding: "0 4px",
   },
 }));
+
 const CartWidget = () => {
+  const { getTotalItems } = useContext(CartContext);
+  let totalItems = getTotalItems();
   return (
     <Link className={Styles.navcategoria} to={`/carrito`}>
       <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Ver Carrito">
           <IconButton aria-label="cart">
-            <StyledBadge badgeContent={4} color="error"></StyledBadge>
+            <StyledBadge badgeContent={totalItems} color="error"></StyledBadge>
             <ShoppingCartIcon />
           </IconButton>
         </Tooltip>

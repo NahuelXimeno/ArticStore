@@ -7,17 +7,7 @@ import {
 } from "@mui/material";
 
 import { ItemCount } from "../../common/ItemCount";
-
-const ProductDetail = ({ productSelected }) => {
-  const onAdd = (cantidad) => {
-    let data = {
-      ...productSelected,
-      quantity: cantidad,
-    };
-
-    console.log(data);
-  };
-
+const ProductDetail = ({ productSelected, onAdd }) => {
   return (
     <>
       <div className="cards-container">
@@ -77,8 +67,8 @@ const ProductDetail = ({ productSelected }) => {
             {productSelected.stock > 0 ? (
               <ItemCount
                 stock={productSelected.stock}
-                initial={1}
                 onAdd={onAdd}
+                initial={1}
               />
             ) : (
               <h3>No hay stock</h3>

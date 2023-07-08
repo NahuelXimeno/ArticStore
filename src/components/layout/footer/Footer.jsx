@@ -1,42 +1,43 @@
-import Styles from "./footer.module.css";
+import "./Footer.css";
+
 const Footer = () => {
   return (
     <>
-      <div className={Styles.containerFooter}>
-        <div className={Styles.footer}>
-          <div className={Styles.foot.logo}>
+      <div className="containerFooter">
+        <div className="footer">
+          <div className="foot.logo">
             <img src="../../../../logo.png" alt="" />
           </div>
         </div>
-        <div className={Styles.footer}>
+        <div className="footer">
           <h2>Contacto</h2>
-          <a className={Styles.foot} target="_blank">
+          <a className="foot" target="_blank">
             <img src="../../../../whatsapp.png" alt="Whatsapp" />
             Whatsapp
           </a>
-          <a className={Styles.foot}>
+          <a className="foot">
             <img src=".../../../../telephone.png" alt="" />
             29018499
           </a>
-          <a className={Styles.foot}>
+          <a className="foot">
             <img src="../../../../smartphone.png" alt="" />
             094568209
           </a>
         </div>
-        <div className={Styles.footer}>
+        <div className="footer">
           <h2>Redes Sociales</h2>
-          <a className={Styles.foot} target="_blank">
-            {" "}
+          <a className="foot" target="_blank">
+            "" ""
             <img src="../../../../instagram.png" alt="Instagram" />
             Instagram
           </a>
-          <a className={Styles.foot} target="_blank">
+          <a className="foot" target="_blank">
             <img src="../../../../facebook.png" alt="Facebook" />
             Facebook
           </a>
         </div>
       </div>
-      <div className={Styles.copyright}>
+      <div className="copyright">
         <hr />
         <p>
           Todos los derechos reservados © 2023 <b>ArticStore</b>
